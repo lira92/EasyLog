@@ -24,6 +24,7 @@ namespace EasyLog
         {
             try
             {
+                //TEsteCommit
                 string path = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory.ToString()) + "\\Logs";
                 if (!Directory.Exists(path))
                 {
