@@ -20,21 +20,38 @@ namespace EasyLog
             set { _nomeLog = value; }
         }
 
-        public static void escreveLog(string texto)
+        /// <summary>
+        /// Metodo para Gravar Log em arquivos de Texto
+        /// </summary>
+        /// <param name="texto">String do log que será gravado.</param>
+        /// <param name="arquivoLog">Nome do arquivo do log que sera gravado o texo. Por Default esse campo é null, grava sempre no mesmo arquivo.</param>
+        public static void escreveLog(string texto, string arquivoLog = null)
         {
             try
             {
+                #region Verifica Pasta onde será salvo os Log.
                 string path = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory.ToString()) + "\\Logs";
+
                 if (!Directory.Exists(path))
-                {
                     Directory.CreateDirectory(path);
-                }
-                if (!File.Exists(path + "\\" + NomeLog))
+                #endregion
+
+                if (arquivoLog != null)
                 {
-                    File.Create(path + "\\" + NomeLog).Close();
+                    if (!File.Exists(path + "\\" + arquivoLog))
+                        File.Create(path + "\\" + arquivoLog).Close();
+
+                    string content = File.ReadAllText(path + "\\" + arquivoLog);
+                    File.WriteAllText(path + "\\" + arquivoLog, content + " \r\n " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + ": " + texto);
                 }
-                string content = File.ReadAllText(path + "\\" + NomeLog);
-                File.WriteAllText(path + "\\" + NomeLog, content + " \r\n " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + ": " + texto);
+                else
+                {
+                    if (!File.Exists(path + "\\" + NomeLog))
+                        File.Create(path + "\\" + NomeLog).Close();
+
+                    string content = File.ReadAllText(path + "\\" + NomeLog);
+                    File.WriteAllText(path + "\\" + NomeLog, content + " \r\n " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + ": " + texto);
+                }
             }
             catch
             {
