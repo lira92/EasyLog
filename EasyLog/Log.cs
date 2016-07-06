@@ -20,6 +20,11 @@ namespace EasyLog
             set { _nomeLog = value; }
         }
 
+        public static string RetornaEnderecoCompletoLog()
+        {
+            return Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory.ToString()) + "\\Logs\\" + NomeLog;
+        }
+
         /// <summary>
         /// Metodo para Gravar Log em arquivos de Texto
         /// </summary>
