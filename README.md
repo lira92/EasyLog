@@ -4,6 +4,6 @@ Biblioteca para gerar Logs na plataforma c# de forma descomplicada
 # Instalação
 `Install-Package EasyLog`
 
-# Utiilização
+# Utilização
 
     Log.escreveLog("Sua mensagem");
